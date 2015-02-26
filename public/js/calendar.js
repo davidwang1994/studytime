@@ -1,11 +1,11 @@
 /*/
 $(document).ready(function() {
-    $('#calendar').fullCalendar({
-        googleCalendarApiKey: '<YOUR API KEY>',
-        events: {
-            googleCalendarId: 'abcd1234@group.calendar.google.com'
-        }
-    });
+$('#calendar').fullCalendar({
+googleCalendarApiKey: '<YOUR API KEY>',
+events: {
+googleCalendarId: 'abcd1234@group.calendar.google.com'
+}
+});
 });
 
 */
@@ -24,32 +24,65 @@ $.getScript('http://arshaw.com/js/fullcalendar-1.6.4/fullcalendar/fullcalendar.m
       right: 'month,agendaWeek,agendaDay'
     },
     /* Sets the default view when page is loaded. In this case
-     * the user will say their agenda for the day.
-     */
+    * the user will say their agenda for the day.
+    */
     defaultView: 'agendaDay',
     selectable: true,
     /* Displays a semi transparent column that shows the user the time slot 
-     * that they clicked on.
-     */
+    * that they clicked on.
+    */
     selectHelper: true,
+    editable: true,
+
     select: function(start, end, allDay)
     {
-      var title = prompt('Event Title:');
-      if (title)
-      {
-        calendar.fullCalendar('renderEvent',
-          {
-            title: title,
-            start: start,
-            end: end,
-            allDay: allDay
-          },
-          true // make the event "stick"
-        );
-      }
-      calendar.fullCalendar('unselect');
+    var title = prompt('Event Title:');
+    if (title)
+    {
+    calendar.fullCalendar('renderEvent',
+    {
+    title: title,
+    start: start,
+    end: end,
+    allDay: allDay
     },
-    editable: true,
+    true // make the event "stick"
+    );
+    }
+    calendar.fullCalendar('unselect');
+    },
+
+/*
+    dayClick: function(date, allDay, jsEvent, view) {
+      var dateFormat = new DateFormat("yyyy-MM-dd HH:mm:ss");
+      var str = dateFormat.format(date);
+
+      var allDayParam;
+      if (allDay) {
+        allDayParam = 1;
+      }
+      else {
+        allDayParam = 0;
+      }
+      var url = "eventform.html";
+      $.get({
+        type: 'POST',
+        url: url,
+        data: {
+          allday: allDayParam
+ //         dateTm: str
+        },
+        dataType: 'html'
+      success: function(data) {
+          $('#editdialog').html(data);
+        },
+        error:function() {
+         alert('Error occured');
+        }
+      });
+      #("#editdialog").dialog("open");
+    },
+   */ 
     url: 'https://www.google.com/calendar/embed?src=ninjaskater365%40gmail.com&ctz=America/Los_Angeles',
     events: [
       {
