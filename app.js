@@ -7,11 +7,17 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars')
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var project = require('./routes/project');
 // Example route
 // var user = require('./routes/user');
+
+var local_database_name = 'project';
+var local_database_uri = 'mongodb://localhost/' + local_database_name
+var database_uri = process.env.MONGOLAB_URI || local_database_uri
+mongoose.connect(database_uri);
 
 var app = express();
 
